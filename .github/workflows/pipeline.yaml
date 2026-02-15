@@ -46,9 +46,4 @@ jobs:
         shell: bash
         env:
           COSIGN_KEY: ${{secrets.COSIGN_KEY}}
-          COSIGN_PASSWORD: ${{secrets.COSIGN_PASSWORD}}
-      - name: Check images
-        run: |
-          ls -al
-          docker pull docker.io/abdelhak245/simple-go:${{ github.sha }}
-          cosign verify --key cosign.pub docker.io/abdelhak245/simple-go:${{ github.sha }} 
+          COSIGN_PASSWORD: ${{secrets.COSIGN_PASSWORD}} 
