@@ -2,7 +2,7 @@ name: Secure Container Supply Chain
 run-name: ${{ github.actor }} pipeline
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  Build-and-Check-Image:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -12,7 +12,7 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.33.1
         with:
-          image-ref: 'docker.io/my-organization/simple-app:${{ github.sha }}'
+          image-ref: 'docker.io/abdelhak245/simple-app:${{ github.sha }}'
           format: 'json'
           exit-code: '1'
           output: 'scan-report.json'
