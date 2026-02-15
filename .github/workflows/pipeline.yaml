@@ -3,6 +3,9 @@ run-name: ${{ github.actor }} pipeline
 on: [push]
 jobs:
   Build-and-Check-Image:
+    permissions:
+        actions: read
+        contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -12,8 +15,14 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.33.1
         with:
-          image-ref: 'docker.io/abdelhak245/taskflow-api:0.0'
+          image-ref: 'docker.io/abdelhak245/simple-app:${{ github.sha }}'
           format: 'json'
           exit-code: '1'
           output: 'scan-report.json'
           ignore-unfixed: false
+      - name: Scan image and generate SBOM
+        uses: anchore/sbom-action@v0
+        with:
+            image: docker.io/abdelhak245/simple-app:${{ github.sha }}
+            format: spdx-json
+            output-file: sbom.spdx.json
