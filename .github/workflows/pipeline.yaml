@@ -11,11 +11,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Build an image from Dockerfile
-        run: docker build -t docker.io/abdelhak245/simple-app:${{ github.sha }} .
+        run: docker build -t docker.io/abdelhak245/simple-go:${{ github.sha }} .
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.33.1
         with:
-          image-ref: 'docker.io/abdelhak245/simple-app:${{ github.sha }}'
+          image-ref: 'docker.io/abdelhak245/simple-go:${{ github.sha }}'
           format: 'json'
           exit-code: '1'
           output: 'scan-report.json'
