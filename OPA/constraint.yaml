@@ -1,0 +1,26 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sAllowedRepos
+metadata:
+  name: allowed-container-registries
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+      - apiGroups: ["apps"]
+        kinds: ["Deployment", "ReplicaSet", "StatefulSet"]
+  parameters:
+    repos:
+      - "abdelhak245/"
+---
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: k8sallowedtags
+metadata:
+  name: allowed-container-tags
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+      - apiGroups: ["apps"]
+        kinds: ["Deployment", "ReplicaSet", "StatefulSet"]
